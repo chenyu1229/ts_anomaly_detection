@@ -54,7 +54,7 @@ Resources:
 
             echo "echo '********** Installing BoosterPack Components... Please wait... **********' " >> "/etc/profile.d/boosterpack.sh"
 
-            git clone https://github.com/chenyu1229/anomaly_detection.git
+            git clone https://github.com/chenyu1229/ts_anomaly_detection.git
 
             wget -q https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -P /home/ubuntu/
             HOME=~ bash /home/ubuntu/Miniconda3-latest-Linux-x86_64.sh -b -p /home/ubuntu/miniconda
