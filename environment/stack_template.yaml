@@ -1,0 +1,77 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Anomaly Detection by Chillwall AI
+ 
+Parameters :
+  InstanceType:
+    Description : EC2 instance type
+    Type : String
+    Default : g4dn.2xlarge
+    AllowedValues :
+           - g4dn.2xlarge
+ 
+  KeyName:
+    Description: Name of an existing EC2 KeyPair to enable SSH access to the instances
+    Type: AWS::EC2::KeyPair::KeyName
+
+
+  IpAddress:
+    Description: Your Public IP Address
+    Type: String
+ 
+Resources:
+  SecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupName: anomaly-dair
+      GroupDescription: Security group for EC2 instance
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: !Sub '${IpAddress}/24'
+
+  EC2Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+      InstanceType: !Ref InstanceType
+      KeyName: !Ref KeyName
+      ImageId: ami-05d4121edd74a9f06
+      BlockDeviceMappings:
+        - DeviceName: /dev/sda1
+          Ebs:
+            VolumeSize: 64
+            VolumeType: gp3
+      "Tags" : [
+            {"Key" : "Name", "Value" : "anomaly_detection"},
+        ]
+      SecurityGroups:
+        - Ref: SecurityGroup
+      UserData:
+        'Fn::Base64': |
+            #!/bin/bash
+
+            cd /home/ubuntu
+
+            echo "echo '********** Installing BoosterPack Components... Please wait... **********' " >> "/etc/profile.d/boosterpack.sh"
+
+            git clone https://github.com/chenyu1229/anomaly_detection.git
+
+            wget -q https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -P /home/ubuntu/
+            HOME=~ bash /home/ubuntu/Miniconda3-latest-Linux-x86_64.sh -b -p /home/ubuntu/miniconda
+
+            export PATH="/home/ubuntu/miniconda/bin:$PATH"
+            source "/home/ubuntu/miniconda/bin/activate"
+            conda init
+
+            cd /home/ubuntu/anomaly_detection/environment
+            conda env create -f environment_file.yml
+            sed -i '1d' "/etc/profile.d/boosterpack.sh"
+            wall "********** DAIR BoosterPack Installing Complete **********"
+            echo "echo '********** DAIR BoosterPack Installing Complete **********' " >> "/etc/profile.d/boosterpack.sh"
+
+Outputs:
+  PublicIp:
+    Value: !GetAtt EC2Instance.PublicIp
+    Description: Server's PublicIp Address
+
+
