@@ -24,9 +24,9 @@ def create_sequences(values, time_steps=TIME_STEPS):
     return np.stack(output)
 
 df_test_value = (df_test - training_var.training_mean) / training_var.training_std
-fig, ax = plt.subplots()
-df_test_value.plot(legend=False, ax=ax)
-plt.show()
+# fig, ax = plt.subplots()
+# df_test_value.plot(legend=False, ax=ax)
+# plt.show()
 
 # Create sequences from test values.
 x_test = create_sequences(df_test_value.values)
@@ -38,9 +38,9 @@ test_mae_loss = np.mean(np.abs(x_test_pred - x_test), axis=1)
 test_mae_loss = test_mae_loss.reshape((-1))
 
 plt.hist(test_mae_loss, bins=50)
-plt.xlabel("Testing MAE")
+plt.xlabel("Prediction MAE")
 plt.ylabel("No of samples")
-plt.show()
+plt.savefig("../res/prediction MAE loss.jpg")
 
 # Detect all the samples which are anomalies.
 anomalies = test_mae_loss > training_var.threshold
