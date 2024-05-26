@@ -9,8 +9,7 @@ from keras import layers
 from matplotlib import pyplot as plt
 
 
-colnames=['timestamp','value'] 
-df = pd.read_csv('../data/train.csv',names=colnames, parse_dates=True, index_col="timestamp") 
+df = pd.read_csv('../data/train.csv', parse_dates=True, index_col="timestamp",header=0) 
 
 
 training_mean = df.mean()
