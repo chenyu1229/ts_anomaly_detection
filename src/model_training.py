@@ -20,7 +20,6 @@ print("Number of training samples:", len(df_training_value))
 
 
 TIME_STEPS = int(24*7)
-#TIME_STEPS = int(72)
 
 
 # Generated training sequences for use in the model.
