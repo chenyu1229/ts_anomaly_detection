@@ -38,9 +38,9 @@ test_mae_loss = np.mean(np.abs(x_test_pred - x_test), axis=1)
 test_mae_loss = test_mae_loss.reshape((-1))
 
 plt.hist(test_mae_loss, bins=50)
-plt.xlabel("Prediction MAE")
+plt.xlabel("Testng MAE")
 plt.ylabel("No of samples")
-plt.savefig("../res/prediction MAE loss.jpg")
+plt.savefig("../res/testing MAE loss.jpg")
 
 # Detect all the samples which are anomalies.
 anomalies = test_mae_loss > training_var.threshold
