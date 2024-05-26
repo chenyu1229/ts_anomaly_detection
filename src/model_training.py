@@ -82,7 +82,6 @@ plt.hist(train_mae_loss, bins=50)
 plt.xlabel("Training MAE")
 plt.ylabel("No of samples")
 plt.savefig("../res/loss_threshold.jpg")
-plt.show()
 
 # Get reconstruction loss threshold.
 threshold = np.max(train_mae_loss)
