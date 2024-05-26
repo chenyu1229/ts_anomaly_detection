@@ -83,7 +83,7 @@ print("Reconstruction error threshold: ", threshold)
 
 model.save('../res/model.keras') 
 print("Model Saved")
-with open("training_var.py","a") as f:
+with open("training_var.py","w") as f:
     f.write(mesg)
 print("Loss Threshold Saved")
 
