@@ -1,23 +1,17 @@
 from datetime import timedelta
 import os
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
-os.environ['TF_ENABLE_ONEDNN_OPTS'] = '0'
-# seasonality = \
-# SinusoidalSeasonality(amplitude=100, period=timedelta(days=3)) \
-# + SinusoidalSeasonality(amplitude=10, period=timedelta(days=1))
-# noise = RedNoise(mean=0, std=10, correlation=0.5)
-# timeseries = seasonality + noise
-
-
 import pandas as pd
-colnames=['timestamp','value'] 
-df = pd.read_csv('../data/train.csv',names=colnames, parse_dates=True, index_col="timestamp") 
-
 import numpy as np
-import pandas as pd
 import keras
 from keras import layers
 from matplotlib import pyplot as plt
+
+# os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
+# os.environ['TF_ENABLE_ONEDNN_OPTS'] = '0'
+
+colnames=['timestamp','value'] 
+df = pd.read_csv('../data/train.csv',names=colnames, parse_dates=True, index_col="timestamp") 
+
 
 training_mean = df.mean()
 training_std = df.std()
