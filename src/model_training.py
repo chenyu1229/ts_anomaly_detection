@@ -85,9 +85,12 @@ plt.savefig("../res/loss_threshold.jpg")
 
 # Get reconstruction loss threshold.
 threshold = np.max(train_mae_loss)
+threshold_mesg = "threshold="+str(threshold)
 print("Reconstruction error threshold: ", threshold)
 
 model.save('../res/model.keras') 
+with open("threshold.py","a") as f:
+    f.write(threshold_mesg)
 
 
 
