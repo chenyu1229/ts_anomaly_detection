@@ -78,7 +78,7 @@ print("Training MAE Loss Image Saved")
 
 # Get reconstruction loss threshold.
 threshold = np.max(train_mae_loss)
-mesg = "threshold="+str(threshold)+"\n"+"training_mean="+str(training_mean)+"\n"+"training_std="+"training_std"
+mesg = "threshold="+str(threshold)+"\n"+"training_mean="+str(training_mean)+"\n"+"training_std="+str(training_std)
 print("Reconstruction error threshold: ", threshold)
 
 model.save('../res/model.keras') 
