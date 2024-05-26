@@ -9,7 +9,7 @@ import training_var
 
 colnames=['timestamp','value'] 
 df_test = pd.read_csv('../data/test.csv',names=colnames, parse_dates=True, index_col="timestamp")
-model = keras.models.load_model('../src/model.keras')
+model = keras.models.load_model('../res/model.keras')
 
 TIME_STEPS = int(24*7)
 
