@@ -73,7 +73,7 @@ train_mae_loss = np.mean(np.abs(x_train_pred - x_train), axis=1)
 plt.hist(train_mae_loss, bins=50)
 plt.xlabel("Training MAE")
 plt.ylabel("No of samples")
-plt.savefig("../res/loss_threshold.jpg")
+plt.savefig("../res/training MAE loss.jpg")
 print("Training MAE Loss Image Saved")
 
 # Get reconstruction loss threshold.
