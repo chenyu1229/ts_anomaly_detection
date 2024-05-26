@@ -6,8 +6,8 @@ import keras
 from keras import layers
 from matplotlib import pyplot as plt
 
-# os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
-# os.environ['TF_ENABLE_ONEDNN_OPTS'] = '0'
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
+os.environ['TF_ENABLE_ONEDNN_OPTS'] = '0'
 
 colnames=['timestamp','value'] 
 df = pd.read_csv('../data/train.csv',names=colnames, parse_dates=True, index_col="timestamp") 
