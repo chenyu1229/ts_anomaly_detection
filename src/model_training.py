@@ -58,7 +58,7 @@ model.summary()
 history = model.fit(
     x_train,
     x_train,
-    epochs=5,
+    epochs=100,
     batch_size=128,
     validation_split=0.1,
     callbacks=[
