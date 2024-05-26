@@ -51,7 +51,8 @@ anomalous_data_indices_raw = [x+TIME_STEPS/2 for x in anomalous_data_indices_raw
 anomalous_data_indices = []
 for data_idx in anomalous_data_indices_raw:
     if set(range(int(data_idx)-int(TIME_STEPS/4),int(data_idx)+int(TIME_STEPS/4))).issubset(set(anomalous_data_indices_raw)):
-        anomalous_data_indices.append(data_idx)
+        anomalous_data_indices.append(int(data_idx))
+        
 
 print("Number of anomaly samples: ", len(anomalous_data_indices))
 print("Indices of anomaly samples: ", anomalous_data_indices)
