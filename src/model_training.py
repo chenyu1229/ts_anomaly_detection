@@ -73,8 +73,7 @@ history = model.fit(
     ],
 )
 
-
-
+print("Calculating Training MAE Loss")
 x_train_pred = model.predict(x_train)
 train_mae_loss = np.mean(np.abs(x_train_pred - x_train), axis=1)
 
@@ -82,6 +81,7 @@ plt.hist(train_mae_loss, bins=50)
 plt.xlabel("Training MAE")
 plt.ylabel("No of samples")
 plt.savefig("../res/loss_threshold.jpg")
+print("Training MAE Loss Image Saved")
 
 # Get reconstruction loss threshold.
 threshold = np.max(train_mae_loss)
@@ -89,8 +89,10 @@ threshold_mesg = "threshold="+str(threshold)
 print("Reconstruction error threshold: ", threshold)
 
 model.save('../res/model.keras') 
+print("Model Saved")
 with open("threshold.py","a") as f:
     f.write(threshold_mesg)
+print("Loss Threshold Saved")
 
 
 
