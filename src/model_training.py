@@ -57,7 +57,7 @@ model.summary()
 history = model.fit(
     x_train,
     x_train,
-    epochs=100,
+    epochs=2,
     batch_size=128,
     validation_split=0.1,
     callbacks=[
@@ -72,7 +72,7 @@ train_mae_loss = np.mean(np.abs(x_train_pred - x_train), axis=1)
 plt.hist(train_mae_loss, bins=50)
 plt.xlabel("Training MAE")
 plt.ylabel("No of samples")
-plt.savefig("../res/training MAE loss.jpg")
+plt.savefig("../res/training_MAE_loss.jpg")
 print("Training MAE Loss Image Saved")
 
 # Get reconstruction loss threshold.
