@@ -56,3 +56,9 @@ for data_idx in anomalous_data_indices_raw:
 print("Number of anomaly samples: ", len(anomalous_data_indices))
 print("Indices of anomaly samples: ", anomalous_data_indices)
 
+df_res = df_test.drop('value', axis=1).reset_index()
+df_res['res'] = False
+df_res.loc[anomalous_data_indices,'res'] = True
+df_res.to_csv("../res/res.csv",index=False)
+
+
