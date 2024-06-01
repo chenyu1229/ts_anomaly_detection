@@ -16,19 +16,19 @@ def read_dataset(file):
     return df
 
 # Generated training sequences for use in the model.
-def create_sequences(values, time_steps=TIME_STEPS):
+def create_sequences(values, time_steps):
     output = []
     for i in range(len(values) - time_steps + 1):
         output.append(values[i : (i + time_steps)])
     return np.stack(output)
 
-def pre_processing(df):
+def pre_processing(df,time_steps):
     df = df.dropna()
     training_mean = df.mean()
     training_std = df.std()
     df_training_value = (df - training_mean) / training_std
     print("Number of training samples:", len(df_training_value))
-    x_train = create_sequences(df_training_value)
+    x_train = create_sequences(df_training_value,time_steps)
     print("Training input shape: ", x_train.shape)
     return x_train, training_mean, training_std
 
@@ -90,7 +90,7 @@ if len(sys.argv) > 1:
     TIME_STEPS = int(sys.argv[1])
 print (TIME_STEPS)
 df = read_dataset('../data/train.csv')
-x_train, training_mean, training_std = pre_processing(df)
+x_train, training_mean, training_std = pre_processing(df,TIME_STEPS)
 model  = build_model(x_train)
 
 history = model.fit(
