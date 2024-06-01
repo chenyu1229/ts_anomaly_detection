@@ -71,7 +71,7 @@ dependencies:
       - pyparsing==3.1.2
       - python-dateutil==2.9.0.post0
       - pytz==2024.1
-      - requests==2.31.0
+      - requests==2.32.0
       - rich==13.7.1
       - six==1.16.0
       - tensorboard==2.16.2
