@@ -62,7 +62,8 @@ model = keras.models.load_model('../res/model.keras')
 # Get test MAE loss.
 x_test_pred = model.predict(x_test)
 test_mae_loss = np.mean(np.abs(x_test_pred - x_test), axis=1)
-test_mae_loss = test_mae_loss.reshape((-1))
+test_mae_loss = np.mean(test_mae_loss, axis=1)
+# test_mae_loss = test_mae_loss.reshape((-1))
 
 # plt.hist(test_mae_loss, bins=50)
 # plt.xlabel("Prediction MAE")

@@ -52,7 +52,7 @@ def build_model(x_train):
             ),
             layers.Conv1D(filters=32, kernel_size=15, padding='same', data_format='channels_last',
                 dilation_rate=1, activation="linear"),
-            layers.TimeDistributed(layers.Dense(1, activation='linear'))
+            layers.TimeDistributed(layers.Dense(x_train.shape[2], activation='linear'))
         ]
     )
     model.compile(optimizer=keras.optimizers.Adam(learning_rate=0.001), loss="mse")
@@ -80,9 +80,9 @@ def save_res(train_mae_loss,training_mean,training_std):
 
 
 TIME_STEPS = int(24*7)
-if len(sys.argv) > 1:
-    TIME_STEPS = int(sys.argv[1])
-print (TIME_STEPS)
+# if len(sys.argv) > 1:
+#     TIME_STEPS = int(sys.argv[1])
+# print (TIME_STEPS)
 df = read_dataset('../data/train.csv')
 x_train, training_mean, training_std = pre_processing(df,TIME_STEPS)
 model  = build_model(x_train)
@@ -100,7 +100,7 @@ history = model.fit(
 
 print("Calculating Training MAE Loss")
 x_train_pred = model.predict(x_train)
-train_mae_loss = np.mean(np.abs(x_train_pred - x_train), axis=1)
+train_mae_loss = np.mean(np.mean(np.abs(x_train_pred - x_train), axis=1), axis=1)
 save_res(train_mae_loss,training_mean,training_std)
 
 
