@@ -25,6 +25,7 @@ def create_sequences(values, time_steps):
 def pre_processing(df,TIME_STEPS):
     df = df.dropna()
     df_test_value = (df - training_var.training_mean) / training_var.training_std
+    # print(df.head())
     # Create sequences from test values.
     x_test = create_sequences(df_test_value.values,TIME_STEPS)
     print("Test input shape: ", x_test.shape)
@@ -41,14 +42,15 @@ def univariate_anomalous_data(anomalies):
     print("Indices of anomaly samples: ", anomalous_data_indices)
     return anomalous_data_indices
 
-def generate_res(df_test):
-    df_res = df_test.drop('value', axis=1).reset_index()
+def generate_res(df,anomalous_data_indices):
+    df_res = df.reset_index()
     df_res['res'] = False
     df_res.loc[anomalous_data_indices,'res'] = True
+    df_res = df_res.filter(['timestamp','res'])
     df_res.to_csv("../res/res.csv",index=False)
 
 TIME_STEPS = training_var.time_steps
-df_test = read_dataset('../data/test.csv')
+df_test = read_dataset('../data/test_multi.csv')
 # df_test = pd.read_csv('../data/test.csv',parse_dates=True, index_col="timestamp",header=0)
 x_test = pre_processing(df_test,TIME_STEPS)
 model = keras.models.load_model('../res/model.keras')
@@ -77,6 +79,6 @@ anomalies = test_mae_loss > training_var.threshold
 anomalous_data_indices = univariate_anomalous_data(anomalies)
 
 
-generate_res(df_test)
+generate_res(df_test,anomalous_data_indices)
 
 
