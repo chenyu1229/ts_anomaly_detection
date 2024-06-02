@@ -83,7 +83,7 @@ TIME_STEPS = int(24*7)
 # if len(sys.argv) > 1:
 #     TIME_STEPS = int(sys.argv[1])
 # print (TIME_STEPS)
-df = read_dataset('../data/train.csv')
+df = read_dataset('../data/train_multi.csv')
 x_train, training_mean, training_std = pre_processing(df,TIME_STEPS)
 model  = build_model(x_train)
 
