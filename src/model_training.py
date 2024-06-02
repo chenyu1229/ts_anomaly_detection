@@ -33,10 +33,6 @@ def pre_processing(df,time_steps):
     return x_train, training_mean, training_std
 
 
-
-
-
-
 # x_train = create_sequences(df_training_value)
 # print("Training input shape: ", x_train.shape)
 def build_model(x_train):
@@ -73,16 +69,14 @@ def save_res(train_mae_loss,training_mean,training_std):
 
     # Get reconstruction loss threshold.
     threshold = np.max(train_mae_loss)
-    mesg = "threshold="+str(threshold)+"\n"+"training_mean="+str(float(training_mean.iloc[0]))+"\n"+"training_std="+str(float(training_std.iloc[0]))+"\n"+"time_steps="+str(int(TIME_STEPS))
+    # mesg = "threshold="+str(threshold)+"\n"+"training_mean="+str(float(training_mean.iloc[0]))+"\n"+"training_std="+str(float(training_std.iloc[0]))+"\n"+"time_steps="+str(int(TIME_STEPS))
+    mesg = "threshold="+str(threshold)+"\n"+"training_mean="+str(list(training_mean))+"\n"+"training_std="+str(list(training_std))+"\n"+"time_steps="+str(int(TIME_STEPS))
     print("Reconstruction error threshold: ", threshold)
 
     model.save('../res/model.keras') 
     with open("training_var.py","w") as f:
         f.write(mesg)
     print("Model Saved")
-
-
-
 
 
 TIME_STEPS = int(24*7)
